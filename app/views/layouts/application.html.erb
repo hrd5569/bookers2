@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>Bookers2</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <script src="https://kit.fontawesome.com/fc5c603cd5.js" crossorigin="anonymous"></script>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+<body>
+  <header>
+<!--<nav class="navbar"ハンバーガーメニュー "navbar-expand-[ブレークポイント]"指定の画面幅に合わせてバートアイコンの切り替え " navbar-[カラースキーム]"で色を指定-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <!--コンテナ化して中央に配置-->
+    <div class="container">
+      <!--<a class="navbar-brand" href="/"><span>Bookers</span></a>でロゴとリンクを設定して<span></span>-->
+      <a class="navbar-brand" href="/"><span>Bookers</span></a>
+      <!--"navbar-toggler"アイコンの枠部分 "navbar-toggler-icon"ナビゲーションアイコンの三本線-->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!--隠しておきたいメニュー要素は<div class="collapse navbar-collapse" id="navbarNavDropdown"></div>の中に記述する-->
+      <!--collapseのclassを付与したdata-toggle="collapse"、data-target="#[id名]"は指定をする-->
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <!--"navbar-nav"はナビバーを水平に設定 "ml-auto"はリストを右側に寄せるためのスタイル-->
+        <ul class="navbar-nav ml-auto">
+
+      <% if user_signed_in? %>
+        <li>
+          <%= link_to user_path(current_user),class: 'nav-link text-light' do %>
+          <i class="fas fa-home"></i> Home
+          <!--上のif文で条件を切り替えているため、指定したリンクの終わりごとにendを記述しないと全て実行してしまう-->
+          <% end %>
+        </li>
+        <li>
+          <%=  link_to users_path, class: 'nav-link text-light' do %>
+          <i class="fas fa-users"></i> Users
+          <% end %>
+        </li>
+        <li>
+          <%=  link_to books_path ,class: 'nav-link text-light' do %>
+          <i class="fas fa-book-open"></i> Books
+          <% end %>
+        </li>
+        <li>
+          <%= link_to destroy_user_session_path, method: :delete,class: 'nav-link text-light' do %>
+          <i class="fas fa-sign-out-alt"></i> Log out
+          <% end %>
+        </li>
+      <% else %>
+        <li>
+          <%= link_to root_path,class: 'nav-link text-light' do %>
+          <i class="fas fa-home"></i> Home
+          <% end %>
+        </li>
+        <li>
+          <%= link_to homes_about_path,class: 'nav-link text-light' do %>
+          <i class="fas fa-link"></i> About
+          <% end %>
+        </li>
+        <li>
+          <%= link_to new_user_registration_path,class: 'nav-link text-light' do %>
+          <i class="fas fa-user-plus"></i> Sign up
+          <% end %>
+        </li>
+        <li>
+          <%= link_to new_user_session_path ,class: 'nav-link text-light' do %>
+          <i class="fas fa-sign-in-alt"></i> Log in
+          <% end %>
+        </li>
+      <% end %>
+      </ul>
+     </div>
+    </div>
+   </div>
+ </header>
+
+<!--yieldの上にflash[:notice]を入れることですべてのビューに成功時のメッセージが出る-->
+<%= flash[:notice] %>
+  <%= yield %>
+
+<footer>
+  <!--containerはコンテンツを中央に配置、mt-5は上方向に余白追加-->
+  <div class='container mt-5'>
+  <!--ページ内の要素を横に配置するための行を定義-->
+  	<div class='row'>
+  <!--mx-auto クラスを使用することで、要素が自動的に中央に配置される-->
+    	<div class='mx-auto'>
+    		<p>CopyRight Infratop.inc</p>
+    	</div>
+    </div>
+  </div>
+</footer>
+
+</body>
+
+</html>

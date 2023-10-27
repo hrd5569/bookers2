@@ -1,0 +1,38 @@
+<!--部分テンプレートの変数は全てローカルにする-->
+<h2>User info</h2>
+<table class='table'>
+  <!--users_controllerのuserがUserモデルから特定のユーザーをテーブルから取得してそのユーザープロフィール画像を出力する-->
+  <tr><%= image_tag user.get_profile_image(100, 100) %></tr>
+  <tr>
+	  <th>name</th>
+  	<!--sers_controllerのuseがUserモデルから特定のユーザーをテーブルから取得してそのnameを出力-->
+  	<td><%= user.name %></td>
+  </tr>
+  <tr>
+   <!--sers_controllerのuseがUserモデルから特定のユーザーを取得してそのテーブルからintroductionを出力-->
+	 <th>introduction</th>
+	 <td><%= user.introduction %></td>
+  </tr>
+</table>
+
+<div class="container">
+  <%= link_to edit_user_path(user), class: "btn btn-outline-secondary btn-block" do %>
+  <i class="fas fa-user-cog"></i>
+  <% end %>
+</div>
+
+  <!--form.submit "ボタン名" do で送信フォームのボタン作成do~endまで書くとその中身自体がリンクになる-->
+  <!--book_pathはshowへのリンクで(book)はbookオブジェクトでBookデータベースに作成されたbooksテーブルにある情報を指定することで送信した本の詳細ページへURLを生成する-->
+<h2 class="mt-3">New book</h2>
+<%= form_with model: book do |form| %>
+  <div class="form-group">
+    <%= form.label :title %>
+    <%= form.text_field :title, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= form.label :body%>
+    <%= form.text_area :body, class: "form-control" %>
+  </div>
+  <%= form.submit "Create Book", class: "btn btn-primary" %>
+<% end %>
+
